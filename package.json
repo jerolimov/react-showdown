@@ -28,12 +28,11 @@
     "cheerio": "^0.19.0"
   },
   "devDependencies": {
-    "chai": "^3.4.1",
     "coveralls": "^2.11.4",
     "istanbul": "^0.4.1",
     "mocha": "^2.3.4",
     "react-dom": "^0.14.3",
-    "showdown-youtube": "https://github.com/showdownjs/youtube-extension.git#d7f20c6"
+    "showdown-twitter": "^1.0.1"
   },
   "peerDependencies": {
     "react": ">=0.13"

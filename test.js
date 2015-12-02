@@ -8,7 +8,9 @@ var ReactDOMServer = require('react-dom/server');
 var renderToStaticMarkup = ReactDOMServer.renderToStaticMarkup;
 
 var ReactShowdown = require('.');
-var ShowdownYoutube = require('showdown-youtube');
+
+var showdown = require('showdown');
+showdown.extensions.twitter = require('showdown-twitter');
 
 var MyCompontent = React.createClass({
 	render: function() {
@@ -54,11 +56,10 @@ describe('ReactShowdown', function() {
 		});
 
 		it('should convert markdown with showdown extension to react elements', function() {
-			var reactShowdown = new ReactShowdown({ converter: { extensions: [ 'youtube' ] }});
-			var youtubeLink = '![youtube video](https://www.youtube.com/watch?v=PAA9O4E1IM4)';
-			var reactElement = reactShowdown.convert('# Hello\n\n' + youtubeLink);
+			var reactShowdown = new ReactShowdown({ converter: { extensions: [ 'twitter' ] }});
+			var reactElement = reactShowdown.convert('Hello @jerolimov');
 			var actualHtml = renderToStaticMarkup(reactElement);
-			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n\n<iframe width="420px" height="315px" src="//www.youtube.com/embed/PAA9O4E1IM4?rel=0"></iframe></div>';
+			var expectedHtml = '<p>Hello <a href="http://twitter.com/jerolimov">@jerolimov</a></p>';
 			assert.equal(actualHtml, expectedHtml);
 		});
 
