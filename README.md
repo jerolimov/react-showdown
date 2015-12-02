@@ -45,9 +45,7 @@ var content = converter.convert('# Hello\n\n<MyCompontent tag="strong">More Cont
 ### Credits
 
 Project is based on the markdown parser [Showdown](https://github.com/showdownjs/showdown) and
-html parser [cheerio](https://github.com/cheeriojs/cheerio).
-
-But we should replace it with the underlaying [htmlparser2](https://github.com/fb55/htmlparser2/)..
+the "forgiving" [htmlparser2](https://github.com/fb55/htmlparser2/).
 
 ### Alternatives
 
