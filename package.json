@@ -4,6 +4,7 @@
   "description": "Converts markdown with showdown to React components",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint index.js test.js",
     "test": "mocha test.js",
     "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha -- test.js"
   },
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "coveralls": "^2.11.4",
+    "eslint": "^1.10.3",
     "istanbul": "^0.4.1",
     "mocha": "^2.3.4",
     "react-dom": "^0.14.3",

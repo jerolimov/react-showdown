@@ -1,3 +1,4 @@
+/*eslint no-console: 0*/
 
 var React = require('react');
 var showdown  = require('showdown');
@@ -37,7 +38,7 @@ module.exports = function ReactShowdown(options) {
 		}).filter(function(element) {
 			return element;
 		}));
-	}
+	};
 
 	this.convert = function(markdown) {
 		var html = this._converter.makeHtml(markdown);
@@ -49,4 +50,4 @@ module.exports = function ReactShowdown(options) {
 			return React.createElement('div', null, reactElements);
 		}
 	};
-}
+};

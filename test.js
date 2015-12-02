@@ -1,8 +1,8 @@
+/* global describe, it */
 
 var assert = require('assert');
 
 var React = require('react');
-var ReactDOM = require('react-dom');
 var ReactDOMServer = require('react-dom/server');
 
 var renderToStaticMarkup = ReactDOMServer.renderToStaticMarkup;
@@ -94,5 +94,5 @@ describe('ReactShowdown', function() {
 			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n\n</div>';
 			assert.equal(actualHtml, expectedHtml);
 		});
-	})
+	});
 });
