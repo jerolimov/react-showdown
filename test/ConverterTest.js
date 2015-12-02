@@ -7,8 +7,7 @@ var ReactDOMServer = require('react-dom/server');
 
 var renderToStaticMarkup = ReactDOMServer.renderToStaticMarkup;
 
-var ReactShowdown = require('../lib');
-var Converter = ReactShowdown.Converter;
+var Converter = require('../lib').Converter;
 
 var showdown = require('showdown');
 showdown.extensions.twitter = require('showdown-twitter');

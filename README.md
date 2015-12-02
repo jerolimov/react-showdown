@@ -1,14 +1,16 @@
 # react-showdown [![Build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![Dependency Status][dependency-image]][dependency-url]
 
-> Converts markdown with showdown to React components
+> Render [React](http://facebook.github.io/react/index.html)
+> [components](http://facebook.github.io/react/docs/component-specs.html)
+> within markdown and markdown as React components!
 
 ### Features
 
-* Converts markdown to React components
+* **Render markdown as React components.**
+* **Render React components within the markdown!**
 * Supports [Showdown extensions](https://github.com/showdownjs/showdown/wiki/extensions), like the
   [Twitter Extension](https://github.com/showdownjs/twitter-extension) and the
-  [Youtube Extension](https://github.com/showdownjs/youtube-extension)
-* **Supports React components within the markdown!**
+  [Youtube Extension](https://github.com/showdownjs/youtube-extension).
 
 ### Installation
 
@@ -16,33 +18,65 @@
 npm install --save react-showdown
 ```
 
-### Usage
+### Use as React component
+
+Really simple markdown example with ES6/JSX:
+
+```jsx
+import { Markdown } from 'react-showdown';
+
+render: () => {
+    var markdown = '# Hello\n\nMore content...';
+    return <Markdown markup={ markdown } />
+}
+```
+
+Use a React component and use it within the markdown with ES6/JSX:
+
+```jsx
+import { Markdown } from 'react-showdown';
+
+const MyComponent extends Component {
+	render() {
+		return React.createElement(this.props.tag, null, this.props.children);
+	}
+};
+
+render: () => {
+    var markdown = '# Hello\n\n<MyComponent tag="strong">More Content...</MyComponent>';
+    return <Markdown markup={ markdown } components={{ MyComponent }} />
+}
+```
+
+### Use the converter
 
 Really simple markdown example:
 
 ```js
-var ReactShowdown = require('react-showdown');
-var converter = new ReactShowdown.Converter();
+var Converter = require('react-showdown').Converter;
+var converter = new Converter();
 
-var content = converter.convert('# Hello\n\nMore content...');
+var markdown = '# Hello\n\nMore content...';
+var reactElement = converter.convert(markdown);
 ```
 
 Use a React component and use it within the markdown:
 
 ```js
-var MyCompontent = React.createClass({
+var MyComponent = React.createClass({
 	render: function() {
 		return React.createElement(this.props.tag, null, this.props.children);
 	}
 });
 
-var ReactShowdown = require('react-showdown');
-var converter = new ReactShowdown.Converter({ components: { 'MyCompontent': MyCompontent }});
+var Converter = require('react-showdown').Converter;
+var converter = new ReactShowdown.Converter({ components: { 'MyComponent': MyComponent }});
 
-var content = converter.convert('# Hello\n\n<MyCompontent tag="strong">More Content...</MyCompontent>');
+var markdown = '# Hello\n\n<MyComponent tag="strong">More Content...</MyComponent>';
+var reactElement = converter.convert(markdown);
 ```
 
-### Available converter options
+### Available props / converter options
 
 Converter options will be pushed forward to the showdown converter, please
 checkout the [valid options section](https://github.com/showdownjs/showdown#valid-options).

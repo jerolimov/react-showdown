@@ -1,7 +1,7 @@
 {
   "name": "react-showdown",
   "version": "0.5.0",
-  "description": "Converts markdown with showdown to React components",
+  "description": "Render React components within markdown and markdown as React components!",
   "main": "lib/index.js",
   "scripts": {
     "lint": "eslint lib tests",
