@@ -39,7 +39,7 @@ var MyCompontent = React.createClass({
 var ReactShowdown = require('react-showdown');
 var converter = new ReactShowdown.Converter({ components: { 'MyCompontent': MyCompontent }});
 
-var content = converter.convert('# Hello\n\n<MyCompontent tag="strong" />');
+var content = converter.convert('# Hello\n\n<MyCompontent tag="strong">More Content...</MyCompontent>');
 ```
 
 ### Credits
