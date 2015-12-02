@@ -42,6 +42,15 @@ var converter = new ReactShowdown.Converter({ components: { 'MyCompontent': MyCo
 var content = converter.convert('# Hello\n\n<MyCompontent tag="strong">More Content...</MyCompontent>');
 ```
 
+### Available converter options
+
+Converter options will be pushed forward to the showdown converter, please
+checkout the [valid options section](https://github.com/showdownjs/showdown#valid-options).
+
+Just the `components` option is managed by this converter.
+It define the component name (tag name) to component React class definition
+(instance of React.createClass) mapping. See example above.
+
 ### Credits
 
 Project is based on the markdown parser [Showdown](https://github.com/showdownjs/showdown) and

@@ -57,7 +57,7 @@ describe('Converter', function() {
 		});
 
 		it('should convert markdown with showdown extension to react elements', function() {
-			var converter = new Converter({ converter: { extensions: [ 'twitter' ] }});
+			var converter = new Converter({ extensions: [ 'twitter' ] });
 			var reactElement = converter.convert('Hello @jerolimov');
 			var actualHtml = renderToStaticMarkup(reactElement);
 			var expectedHtml = '<p>Hello <a href="http://twitter.com/jerolimov">@jerolimov</a></p>';
