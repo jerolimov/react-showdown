@@ -2,11 +2,11 @@
   "name": "react-showdown",
   "version": "0.1.0",
   "description": "Converts markdown with showdown to React components",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "lint": "eslint index.js test.js",
-    "test": "mocha test.js",
-    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha -- test.js"
+    "lint": "eslint lib tests",
+    "test": "mocha --recursive",
+    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha --recursive"
   },
   "author": "Christoph Jerolimov",
   "license": "MIT",
