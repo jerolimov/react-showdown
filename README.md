@@ -22,9 +22,9 @@ Really simple markdown example:
 
 ```js
 var ReactShowdown = require('react-showdown');
-var reactShowdown = new ReactShowdown();
+var converter = new ReactShowdown.Converter();
 
-var content = reactShowdown.convert('# Hello\n\nMore content...');
+var content = converter.convert('# Hello\n\nMore content...');
 ```
 
 Use a React component and use it within the markdown:
@@ -37,9 +37,9 @@ var MyCompontent = React.createClass({
 });
 
 var ReactShowdown = require('react-showdown');
-var reactShowdown = new ReactShowdown({ components: { 'MyCompontent': MyCompontent }});
+var converter = new ReactShowdown.Converter({ components: { 'MyCompontent': MyCompontent }});
 
-var content = reactShowdown.convert('# Hello\n\n<MyCompontent tag="strong" />');
+var content = converter.convert('# Hello\n\n<MyCompontent tag="strong" />');
 ```
 
 ### Credits
