@@ -4,7 +4,7 @@
   "description": "Render React components within markdown and markdown as React components!",
   "main": "lib/index.js",
   "scripts": {
-    "lint": "eslint lib tests",
+    "lint": "eslint lib test",
     "test": "mocha --recursive",
     "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha --recursive"
   },
