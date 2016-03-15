@@ -1,6 +1,4 @@
-# EditorConfig helps developers define and maintain consistent
-# coding styles between different editors and IDEs
-# editorconfig.org
+# EditorConfig is awesome: http://EditorConfig.org
 
 root = true
 
@@ -9,11 +7,10 @@ charset = utf-8
 end_of_line = lf
 indent_style = tab
 insert_final_newline = true
-trim_trailing_whitespace = true
-
-[*.md]
-trim_trailing_whitespace = false
 
 [{*.json,*.yml}]
 indent_style = space
 indent_size = 2
+
+[{*.md,*.markdown}]
+trim_trailing_whitespace = false
