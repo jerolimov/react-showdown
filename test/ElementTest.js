@@ -36,7 +36,7 @@ describe('Element', function() {
 	it('should render little bit more complex markdown', function() {
 		var reactElement = React.createElement(Element, { markdown: '# Hello\n\nMore content...' });
 		var actualHtml = renderToStaticMarkup(reactElement);
-		var expectedHtml = '<div><h1 id="hello">Hello</h1>\n\n<p>More content...</p></div>';
+		var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p>More content...</p></div>';
 		assert.equal(actualHtml, expectedHtml);
 	});
 
@@ -50,28 +50,28 @@ describe('Element', function() {
 	it('should keep unknown tags', function() {
 		var reactElement = React.createElement(Element, { markdown: '# Hello\n\n<MyCompontent tag="strong" />' });
 		var actualHtml = renderToStaticMarkup(reactElement);
-		var expectedHtml = '<div><h1 id="hello">Hello</h1>\n\n<p><mycompontent></mycompontent></p></div>';
+		var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><mycompontent></mycompontent></p></div>';
 		assert.equal(actualHtml, expectedHtml);
 	});
 
 	it('should render markdown with react component tag without children', function() {
 		var reactElement = React.createElement(Element, { markdown: '# Hello\n\n<MyCompontent tag="strong" />', components: { 'MyCompontent': MyCompontent } });
 		var actualHtml = renderToStaticMarkup(reactElement);
-		var expectedHtml = '<div><h1 id="hello">Hello</h1>\n\n<p><strong></strong></p></div>';
+		var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><strong></strong></p></div>';
 		assert.equal(actualHtml, expectedHtml);
 	});
 
 	it('should render markdown with react component tag with children', function() {
 		var reactElement = React.createElement(Element, { markdown: '# Hello\n\n<MyCompontent tag="strong">More Content...</MyCompontent>', components: { 'MyCompontent': MyCompontent } });
 		var actualHtml = renderToStaticMarkup(reactElement);
-		var expectedHtml = '<div><h1 id="hello">Hello</h1>\n\n<p><strong>More Content...</strong></p></div>';
+		var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><strong>More Content...</strong></p></div>';
 		assert.equal(actualHtml, expectedHtml);
 	});
 
 	it('should render markdown with comment', function() {
 		var reactElement = React.createElement(Element, { markdown: '# Hello\n\n<!-- Comment -->' });
 		var actualHtml = renderToStaticMarkup(reactElement);
-		var expectedHtml = '<div><h1 id="hello">Hello</h1>\n\n</div>';
+		var expectedHtml = '<div><h1 id="hello">Hello</h1>\n</div>';
 		assert.equal(actualHtml, expectedHtml);
 	});
 });
