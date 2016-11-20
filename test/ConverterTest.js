@@ -51,7 +51,7 @@ describe('Converter', function() {
 			var converter = new Converter();
 			var reactElement = converter.convert('# Hello\n\nMore content...');
 			var actualHtml = renderToStaticMarkup(reactElement);
-			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n\n<p>More content...</p></div>';
+			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p>More content...</p></div>';
 			assert.equal(actualHtml, expectedHtml);
 		});
 
@@ -67,7 +67,7 @@ describe('Converter', function() {
 			var converter = new Converter();
 			var reactElement = converter.convert('# Hello\n\n<MyCompontent tag="strong" />');
 			var actualHtml = renderToStaticMarkup(reactElement);
-			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n\n<p><mycompontent></mycompontent></p></div>';
+			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><mycompontent></mycompontent></p></div>';
 			assert.equal(actualHtml, expectedHtml);
 		});
 
@@ -75,7 +75,7 @@ describe('Converter', function() {
 			var converter = new Converter({ components: { 'MyCompontent': MyCompontent }});
 			var reactElement = converter.convert('# Hello\n\n<MyCompontent tag="strong" />');
 			var actualHtml = renderToStaticMarkup(reactElement);
-			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n\n<p><strong></strong></p></div>';
+			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><strong></strong></p></div>';
 			assert.equal(actualHtml, expectedHtml);
 		});
 
@@ -83,7 +83,7 @@ describe('Converter', function() {
 			var converter = new Converter({ components: { 'MyCompontent': MyCompontent }});
 			var reactElement = converter.convert('# Hello\n\n<MyCompontent tag="strong">More Content...</MyCompontent>');
 			var actualHtml = renderToStaticMarkup(reactElement);
-			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n\n<p><strong>More Content...</strong></p></div>';
+			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><strong>More Content...</strong></p></div>';
 			assert.equal(actualHtml, expectedHtml);
 		});
 
@@ -91,7 +91,7 @@ describe('Converter', function() {
 			var converter = new Converter();
 			var reactElement = converter.convert('# Hello\n\n<!-- Comment -->');
 			var actualHtml = renderToStaticMarkup(reactElement);
-			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n\n</div>';
+			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n</div>';
 			assert.equal(actualHtml, expectedHtml);
 		});
 	});
