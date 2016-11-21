@@ -94,5 +94,13 @@ describe('Converter', function() {
 			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n</div>';
 			assert.equal(actualHtml, expectedHtml);
 		});
+
+		it('should convert markdown to table tags', function() {
+			var converter = new Converter({ tables: true });
+			var reactElement = converter.convert('|h1|h2|h3|\n|:--|:--:|--:|\n|*foo*|**bar**|baz|');
+			var actualHtml = renderToStaticMarkup(reactElement);
+			var expectedHtml = '<table><thead><tr><th>h1</th><th>h2</th><th>h3</th></tr></thead><tbody><tr><td><em>foo</em></td><td><strong>bar</strong></td><td>baz</td></tr></tbody></table>';
+			assert.equal(actualHtml, expectedHtml);
+		});
 	});
 });
