@@ -15,7 +15,10 @@ showdown.extensions.twitter = require('showdown-twitter');
 
 var MyComponent = createClass({
 	render: function() {
-		return React.createElement(this.props.tag, null, this.props.children);
+		var props = Object.assign({}, this.props);
+		delete props.tag;
+		delete props.children;
+		return React.createElement(this.props.tag, props, this.props.children);
 	}
 });
 
@@ -103,5 +106,12 @@ describe('Converter', function() {
 			var expectedHtml = '<table><thead><tr><th>h1</th><th>h2</th><th>h3</th></tr></thead><tbody><tr><td><em>foo</em></td><td><strong>bar</strong></td><td>baz</td></tr></tbody></table>';
 			assert.equal(actualHtml, expectedHtml);
 		});
+
+		it('should strip the markdown prop', function() {
+			var converter = new Converter({ components: { 'MyComponent': MyComponent }});
+			var reactElement = converter.convert('<MyComponent markdown="1" tag="strong"/>');
+			assert.deepEqual(reactElement.props.children[0].props, { tag: 'strong', children: null });
+		});
+
 	});
 });
