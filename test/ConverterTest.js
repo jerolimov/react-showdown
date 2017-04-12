@@ -4,6 +4,7 @@ var assert = require('assert');
 
 var React = require('react');
 var ReactDOMServer = require('react-dom/server');
+var createClass = require('create-react-class');
 
 var renderToStaticMarkup = ReactDOMServer.renderToStaticMarkup;
 
@@ -12,7 +13,7 @@ var Converter = require('../lib').Converter;
 var showdown = require('showdown');
 showdown.extensions.twitter = require('showdown-twitter');
 
-var MyCompontent = React.createClass({
+var MyComponent = createClass({
 	render: function() {
 		return React.createElement(this.props.tag, null, this.props.children);
 	}
@@ -65,23 +66,23 @@ describe('Converter', function() {
 
 		it('should keep unknown tags', function() {
 			var converter = new Converter();
-			var reactElement = converter.convert('# Hello\n\n<MyCompontent tag="strong" />');
+			var reactElement = converter.convert('# Hello\n\n<MyComponent tag="strong" />');
 			var actualHtml = renderToStaticMarkup(reactElement);
-			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><mycompontent></mycompontent></p></div>';
+			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><mycomponent></mycomponent></p></div>';
 			assert.equal(actualHtml, expectedHtml);
 		});
 
 		it('should convert markdown with react component tag to react elements without children', function() {
-			var converter = new Converter({ components: { 'MyCompontent': MyCompontent }});
-			var reactElement = converter.convert('# Hello\n\n<MyCompontent tag="strong" />');
+			var converter = new Converter({ components: { 'MyComponent': MyComponent }});
+			var reactElement = converter.convert('# Hello\n\n<MyComponent tag="strong" />');
 			var actualHtml = renderToStaticMarkup(reactElement);
 			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><strong></strong></p></div>';
 			assert.equal(actualHtml, expectedHtml);
 		});
 
 		it('should convert markdown with react component tag to react elements with children', function() {
-			var converter = new Converter({ components: { 'MyCompontent': MyCompontent }});
-			var reactElement = converter.convert('# Hello\n\n<MyCompontent tag="strong">More Content...</MyCompontent>');
+			var converter = new Converter({ components: { 'MyComponent': MyComponent }});
+			var reactElement = converter.convert('# Hello\n\n<MyComponent tag="strong">More Content...</MyComponent>');
 			var actualHtml = renderToStaticMarkup(reactElement);
 			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><strong>More Content...</strong></p></div>';
 			assert.equal(actualHtml, expectedHtml);

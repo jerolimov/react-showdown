@@ -63,7 +63,8 @@ var reactElement = converter.convert(markdown);
 Use a React component and use it within the markdown:
 
 ```js
-var MyComponent = React.createClass({
+var createClass = require('create-react-class');
+var MyComponent = createClass({
 	render: function() {
 		return React.createElement(this.props.tag, null, this.props.children);
 	}
@@ -83,7 +84,7 @@ checkout the [valid options section](https://github.com/showdownjs/showdown#vali
 
 Just the `components` option is managed by this converter.
 It define the component name (tag name) to component React class definition
-(instance of React.createClass) mapping. See example above.
+(instance of createClass) mapping. See example above.
 
 ### Credits
 

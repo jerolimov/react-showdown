@@ -4,6 +4,7 @@ var assert = require('assert');
 
 var React = require('react');
 var ReactDOMServer = require('react-dom/server');
+var createClass = require('create-react-class');
 
 var renderToStaticMarkup = ReactDOMServer.renderToStaticMarkup;
 
@@ -12,7 +13,7 @@ var Element = require('../lib').Element;
 var showdown = require('showdown');
 showdown.extensions.twitter = require('showdown-twitter');
 
-var MyCompontent = React.createClass({
+var MyComponent = createClass({
 	render: function() {
 		return React.createElement(this.props.tag, null, this.props.children);
 	}
@@ -48,21 +49,21 @@ describe('Element', function() {
 	});
 
 	it('should keep unknown tags', function() {
-		var reactElement = React.createElement(Element, { markdown: '# Hello\n\n<MyCompontent tag="strong" />' });
+		var reactElement = React.createElement(Element, { markdown: '# Hello\n\n<MyComponent tag="strong" />' });
 		var actualHtml = renderToStaticMarkup(reactElement);
-		var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><mycompontent></mycompontent></p></div>';
+		var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><mycomponent></mycomponent></p></div>';
 		assert.equal(actualHtml, expectedHtml);
 	});
 
 	it('should render markdown with react component tag without children', function() {
-		var reactElement = React.createElement(Element, { markdown: '# Hello\n\n<MyCompontent tag="strong" />', components: { 'MyCompontent': MyCompontent } });
+		var reactElement = React.createElement(Element, { markdown: '# Hello\n\n<MyComponent tag="strong" />', components: { 'MyComponent': MyComponent } });
 		var actualHtml = renderToStaticMarkup(reactElement);
 		var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><strong></strong></p></div>';
 		assert.equal(actualHtml, expectedHtml);
 	});
 
 	it('should render markdown with react component tag with children', function() {
-		var reactElement = React.createElement(Element, { markdown: '# Hello\n\n<MyCompontent tag="strong">More Content...</MyCompontent>', components: { 'MyCompontent': MyCompontent } });
+		var reactElement = React.createElement(Element, { markdown: '# Hello\n\n<MyComponent tag="strong">More Content...</MyComponent>', components: { 'MyComponent': MyComponent } });
 		var actualHtml = renderToStaticMarkup(reactElement);
 		var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><strong>More Content...</strong></p></div>';
 		assert.equal(actualHtml, expectedHtml);
