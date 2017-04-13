@@ -115,7 +115,7 @@ describe('Converter', function() {
 			assert.equal(actualHtml, expectedHtml);
 		});
 
-    it('should strip the markdown prop', function() {
+		it('should strip the markdown prop', function() {
 			var converter = new Converter({ components: { 'MyComponent': MyComponent }});
 			var reactElement = converter.convert('<MyComponent markdown="1" tag="strong"/>');
 			assert.deepEqual(reactElement.props.children[0].props, { tag: 'strong', children: null });
