@@ -1,4 +1,5 @@
 ## Unreleased
+- pass options into htmlparser to keep capitalization of tags and attributes (#8, @modosc)
 
 ## 1.4.0 (2017-04-13)
 - fix handling of className prop (#7, @modosc)
