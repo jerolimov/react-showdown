@@ -69,9 +69,9 @@ describe('Converter', function() {
 
 		it('should keep unknown tags', function() {
 			var converter = new Converter();
-			var reactElement = converter.convert('# Hello\n\n<MyComponent tag="strong" />');
+			var reactElement = converter.convert('# Hello\n\n<MyComponent />');
 			var actualHtml = renderToStaticMarkup(reactElement);
-			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><mycomponent></mycomponent></p></div>';
+			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><MyComponent></MyComponent></p></div>';
 			assert.equal(actualHtml, expectedHtml);
 		});
 
@@ -107,7 +107,7 @@ describe('Converter', function() {
 			assert.equal(actualHtml, expectedHtml);
 		});
 
-		it('should handle className attribute', function() {
+		it('should handle mixed case attributes', function() {
 			var converter = new Converter({ components: { 'MyComponent': MyComponent }});
 			var reactElement = converter.convert('# Hello\n\n<MyComponent tag="strong" className="foo" />');
 			var actualHtml = renderToStaticMarkup(reactElement);

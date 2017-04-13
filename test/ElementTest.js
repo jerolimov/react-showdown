@@ -49,9 +49,9 @@ describe('Element', function() {
 	});
 
 	it('should keep unknown tags', function() {
-		var reactElement = React.createElement(Element, { markdown: '# Hello\n\n<MyComponent tag="strong" />' });
+		var reactElement = React.createElement(Element, { markdown: '# Hello\n\n<MyComponent/>' });
 		var actualHtml = renderToStaticMarkup(reactElement);
-		var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><mycomponent></mycomponent></p></div>';
+		var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><MyComponent></MyComponent></p></div>';
 		assert.equal(actualHtml, expectedHtml);
 	});
 
