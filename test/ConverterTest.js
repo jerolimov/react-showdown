@@ -107,6 +107,14 @@ describe('Converter', function() {
 			assert.equal(actualHtml, expectedHtml);
 		});
 
+		it('should handle className attribute', function() {
+			var converter = new Converter({ components: { 'MyComponent': MyComponent }});
+			var reactElement = converter.convert('# Hello\n\n<MyComponent tag="strong" className="foo" />');
+			var actualHtml = renderToStaticMarkup(reactElement);
+			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><strong class="foo"></strong></p></div>';
+			assert.equal(actualHtml, expectedHtml);
+		});
+
 		it('should strip the markdown prop', function() {
 			var converter = new Converter({ components: { 'MyComponent': MyComponent }});
 			var reactElement = converter.convert('<MyComponent markdown="1" tag="strong"/>');
