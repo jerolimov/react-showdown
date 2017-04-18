@@ -1,3 +1,7 @@
+## unreleased
+
+*   fix handling of class in embedded html (#11 by @modosc)
+
 ## 1.5.0 (2017-04-13)
 
 *   Pass options into htmlparser to keep capitalization of tags and attributes (#8 by @modosc)

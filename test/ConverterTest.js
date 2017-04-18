@@ -121,5 +121,12 @@ describe('Converter', function() {
 			assert.deepEqual(reactElement.props.children[0].props, { tag: 'strong', children: null });
 		});
 
+		it('should handle class attributes of inline html', function() {
+			var converter = new Converter({ components: { 'MyComponent': MyComponent }});
+			var reactElement = converter.convert('<span class="foo">text</span><MyComponent markdown="1" tag="strong"/>');
+			var actualHtml = renderToStaticMarkup(reactElement);
+			var expectedHtml = '<p><span class="foo">text</span><strong></strong></p>';
+			assert.equal(actualHtml, expectedHtml);
+		});
 	});
 });
