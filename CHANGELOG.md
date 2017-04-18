@@ -1,6 +1,6 @@
-## unreleased
+## 1.6.0 (2017-04-18)
 
-*   fix handling of class in embedded html (#11 by @modosc)
+*   Fix handling of class in embedded html (#11 by @modosc)
 
 ## 1.5.0 (2017-04-13)
 
