@@ -82,24 +82,24 @@ var reactElement = converter.convert(markdown);
 * **components**: (object or array) Mapping of component name (tag name) to component React class (instance of createClass).
 
 	Object form:
-```javascript
-var converter = new ReactShowdown.Converter({
-	components: {
-		'MyComponent': MyComponent
-	}
-});
-```
-
+	
+	```javascript
+	var converter = new ReactShowdown.Converter({
+		components: {
+			'MyComponent': MyComponent
+		}
+	});
+	```
 	Array form:
-```javascript
-var converter = new ReactShowdown.Converter({
-	components: [{
-		name: 'MyComponent',
-		component: MyComponent,
-		block: true
-	}]
-});
-```
+	```javascript
+	var converter = new ReactShowdown.Converter({
+		components: [{
+			name: 'MyComponent',
+			component: MyComponent,
+			block: true
+		}]
+	});
+	```
 
 
 All other converter options will be pushed forward to the showdown converter, please
