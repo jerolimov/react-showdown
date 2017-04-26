@@ -75,22 +75,6 @@ describe('Converter', function() {
 			assert.equal(actualHtml, expectedHtml);
 		});
 
-		it('should convert markdown with react component tag to react elements without children', function() {
-			var converter = new Converter({ components: { 'MyComponent': MyComponent }});
-			var reactElement = converter.convert('# Hello\n\n<MyComponent tag="strong" />');
-			var actualHtml = renderToStaticMarkup(reactElement);
-			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><strong></strong></p></div>';
-			assert.equal(actualHtml, expectedHtml);
-		});
-
-		it('should convert markdown with react component tag to react elements with children', function() {
-			var converter = new Converter({ components: { 'MyComponent': MyComponent }});
-			var reactElement = converter.convert('# Hello\n\n<MyComponent tag="strong">More Content...</MyComponent>');
-			var actualHtml = renderToStaticMarkup(reactElement);
-			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><strong>More Content...</strong></p></div>';
-			assert.equal(actualHtml, expectedHtml);
-		});
-
 		it('should convert markdown with comment', function() {
 			var converter = new Converter();
 			var reactElement = converter.convert('# Hello\n\n<!-- Comment -->');
@@ -107,26 +91,71 @@ describe('Converter', function() {
 			assert.equal(actualHtml, expectedHtml);
 		});
 
-		it('should handle mixed case attributes', function() {
-			var converter = new Converter({ components: { 'MyComponent': MyComponent }});
-			var reactElement = converter.convert('# Hello\n\n<MyComponent tag="strong" className="foo" />');
-			var actualHtml = renderToStaticMarkup(reactElement);
-			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><strong class="foo"></strong></p></div>';
-			assert.equal(actualHtml, expectedHtml);
+		var itHandlesComponentsCorrectly = function(components) {
+			it('should convert markdown with react component tag to react elements without children', function() {
+				var converter = new Converter({ components: components });
+				var reactElement = converter.convert('# Hello\n\n<MyComponent tag="strong" />');
+				var actualHtml = renderToStaticMarkup(reactElement);
+				var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><strong></strong></p></div>';
+				assert.equal(actualHtml, expectedHtml);
+			});
+
+			it('should convert markdown with react component tag to react elements with children', function() {
+				var converter = new Converter({ components: components });
+				var reactElement = converter.convert('# Hello\n\n<MyComponent tag="strong">More Content...</MyComponent>');
+				var actualHtml = renderToStaticMarkup(reactElement);
+				var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><strong>More Content...</strong></p></div>';
+				assert.equal(actualHtml, expectedHtml);
+			});
+
+			it('should handle mixed case attributes', function() {
+				var converter = new Converter({ components: components });
+				var reactElement = converter.convert('# Hello\n\n<MyComponent tag="strong" className="foo" />');
+				var actualHtml = renderToStaticMarkup(reactElement);
+				var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><strong class="foo"></strong></p></div>';
+				assert.equal(actualHtml, expectedHtml);
+			});
+
+			it('should strip the markdown prop', function() {
+				var converter = new Converter({ components: components });
+				var reactElement = converter.convert('<MyComponent markdown="1" tag="strong"/>');
+				assert.deepEqual(reactElement.props.children[0].props, { tag: 'strong', children: null });
+			});
+
+			it('should handle class attributes of inline html', function() {
+				var converter = new Converter({ components: components });
+				var reactElement = converter.convert('<span class="foo">text</span><MyComponent markdown="1" tag="strong"/>');
+				var actualHtml = renderToStaticMarkup(reactElement);
+				var expectedHtml = '<p><span class="foo">text</span><strong></strong></p>';
+				assert.equal(actualHtml, expectedHtml);
+			});
+		};
+		describe('with components object', function() {
+			itHandlesComponentsCorrectly({ 'MyComponent': MyComponent });
+		});
+		describe('with components array', function() {
+			itHandlesComponentsCorrectly([ {name: 'MyComponent', component: MyComponent } ]);
+
+			describe('with block components', function() {
+				var components = [ {name: 'MyComponent', component: MyComponent, block: true  } ];
+				it('should convert markdown with react component tag to react elements without children', function() {
+					var converter = new Converter({ components: components });
+					var reactElement = converter.convert('# Hello\n\n<MyComponent tag="div" />');
+					var actualHtml = renderToStaticMarkup(reactElement);
+					var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<div></div></div>';
+					assert.equal(actualHtml, expectedHtml);
+				});
+
+				it('should convert markdown with react component tag to react elements with children', function() {
+					var converter = new Converter({ components: components });
+					var reactElement = converter.convert('# Hello\n\n<MyComponent tag="div">More Content...</MyComponent>');
+					var actualHtml = renderToStaticMarkup(reactElement);
+					var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<div><p>More Content...</p></div></div>';
+					assert.equal(actualHtml, expectedHtml);
+				});
+
+			});
 		});
 
-		it('should strip the markdown prop', function() {
-			var converter = new Converter({ components: { 'MyComponent': MyComponent }});
-			var reactElement = converter.convert('<MyComponent markdown="1" tag="strong"/>');
-			assert.deepEqual(reactElement.props.children[0].props, { tag: 'strong', children: null });
-		});
-
-		it('should handle class attributes of inline html', function() {
-			var converter = new Converter({ components: { 'MyComponent': MyComponent }});
-			var reactElement = converter.convert('<span class="foo">text</span><MyComponent markdown="1" tag="strong"/>');
-			var actualHtml = renderToStaticMarkup(reactElement);
-			var expectedHtml = '<p><span class="foo">text</span><strong></strong></p>';
-			assert.equal(actualHtml, expectedHtml);
-		});
 	});
 });

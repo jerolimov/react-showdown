@@ -79,12 +79,76 @@ var reactElement = converter.convert(markdown);
 
 ### Available props / converter options
 
-Converter options will be pushed forward to the showdown converter, please
+* **components**: (object or array) Mapping of component name (tag name) to component React class (instance of createClass).
+
+	Object form:
+```javascript
+var converter = new ReactShowdown.Converter({
+	components: {
+		'MyComponent': MyComponent
+	}
+});
+```
+
+	Array form:
+```javascript
+var converter = new ReactShowdown.Converter({
+	components: [{
+		name: 'MyComponent',
+		component: MyComponent,
+		block: true
+	}]
+});
+```
+
+
+All other converter options will be pushed forward to the showdown converter, please
 checkout the [valid options section](https://github.com/showdownjs/showdown#valid-options).
 
-Just the `components` option is managed by this converter.
-It define the component name (tag name) to component React class definition
-(instance of createClass) mapping. See example above.
+### Block vs Inline
+By default all custom React components are rendered inline in Showdown. For example:
+```javascript
+const Component = (props={}) =>
+  React.createElement(props.tag, props, props.children);
+
+
+const Markdown = () => {
+  const markdown = '<Component tag="span">Hello<Component>';
+  return <Markdown markup={ markdown } components={{ Component }} />
+}
+```
+renders to:
+```html
+<p><span>Hello</span></p>
+```
+
+If your React component returns a block level element you will get an error:
+```javascript
+const Markdown = () => {
+  const markdown = '<Component tag="div">Hello<Component>';
+  return <Markdown markup={ markdown } components={{ Component }} />
+}
+```
+```
+Warning: validateDOMNesting(...): <div> cannot appear as a descendant of <p>. See p > ... > Component > div.
+```
+
+To avoid this (or if you just don't want your component wrapped in `<p>` tags) you can use the array form of `components` and set the `block` option:
+```javascript
+const Markdown = () => {
+  const markdown = '<Component tag="div">Hello<Component>';
+	const components = [{
+		name: 'Component',
+		component: Component,
+		block: true
+	}];
+  return <Markdown markup={ markdown } components={ components } />
+}
+```
+which renders to:
+```html
+<div><p>Hello</p></div>
+```
 
 ### Credits
 

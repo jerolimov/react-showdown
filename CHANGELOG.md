@@ -1,3 +1,6 @@
+## Unreleased
+*   Add block option
+
 ## 1.6.0 (2017-04-18)
 
 *   Fix handling of class in embedded html (#11 by @modosc)
