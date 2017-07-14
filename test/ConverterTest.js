@@ -139,18 +139,18 @@ describe('Converter', function() {
 			describe('with block components', function() {
 				var components = [ {name: 'MyComponent', component: MyComponent, block: true  } ];
 				it('should convert markdown with react component tag to react elements without children', function() {
-					var converter = new Converter({ components: components });
-					var reactElement = converter.convert('# Hello\n\n<MyComponent tag="div" />');
+					var converter = new Converter({ components: components	 });
+					var reactElement = converter.convert('# Hello\n\n<MyComponent tag="div" />\n\n# Goodbye');
 					var actualHtml = renderToStaticMarkup(reactElement);
-					var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<div></div></div>';
+					var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<div></div>\n<h1 id="goodbye">Goodbye</h1></div>';
 					assert.equal(actualHtml, expectedHtml);
 				});
 
 				it('should convert markdown with react component tag to react elements with children', function() {
 					var converter = new Converter({ components: components });
-					var reactElement = converter.convert('# Hello\n\n<MyComponent tag="div">More Content...</MyComponent>');
+					var reactElement = converter.convert('# Hello\n\n<MyComponent tag="div">More Content...</MyComponent>\n\n# Goodbye');
 					var actualHtml = renderToStaticMarkup(reactElement);
-					var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<div><p>More Content...</p></div></div>';
+					var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<div><p>More Content...</p></div>\n<h1 id="goodbye">Goodbye</h1></div>';
 					assert.equal(actualHtml, expectedHtml);
 				});
 
