@@ -22,6 +22,12 @@ var MyComponent = createClass({
 	}
 });
 
+var ThComponent = createClass({
+	render: function() {
+		return React.createElement('th', this.props);
+	}
+});
+
 describe('Converter', function() {
 	describe('Object', function() {
 		it('should be a function', function() {
@@ -103,7 +109,7 @@ describe('Converter', function() {
 			var converter = new Converter({ tables: true });
 			var reactElement = converter.convert('|h1|h2|h3|\n|:--|:--:|--:|\n|*foo*|**bar**|baz|');
 			var actualHtml = renderToStaticMarkup(reactElement);
-			var expectedHtml = '<table><thead><tr><th>h1</th><th>h2</th><th>h3</th></tr></thead><tbody><tr><td><em>foo</em></td><td><strong>bar</strong></td><td>baz</td></tr></tbody></table>';
+			var expectedHtml = '<table><thead><tr><th style="text-align:left;">h1</th><th style="text-align:center;">h2</th><th style="text-align:right;">h3</th></tr></thead><tbody><tr><td style="text-align:left;"><em>foo</em></td><td style="text-align:center;"><strong>bar</strong></td><td style="text-align:right;">baz</td></tr></tbody></table>';
 			assert.equal(actualHtml, expectedHtml);
 		});
 
@@ -126,6 +132,14 @@ describe('Converter', function() {
 			var reactElement = converter.convert('<span class="foo">text</span><MyComponent markdown="1" tag="strong"/>');
 			var actualHtml = renderToStaticMarkup(reactElement);
 			var expectedHtml = '<p><span class="foo">text</span><strong></strong></p>';
+			assert.equal(actualHtml, expectedHtml);
+		});
+
+		it('should render custom components with style attribute', function() {
+			var converter = new Converter({ components: { th: ThComponent }, tables: true });
+			var reactElement = converter.convert('| a | b |\n|:--|---|\n| 1 | 2 |');
+			var actualHtml = renderToStaticMarkup(reactElement);
+			var expectedHtml = '<table><thead><tr><th style="text-align:left;">a</th><th>b</th></tr></thead><tbody><tr><td style="text-align:left;">1</td><td>2</td></tr></tbody></table>';
 			assert.equal(actualHtml, expectedHtml);
 		});
 	});

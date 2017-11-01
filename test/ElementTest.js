@@ -79,7 +79,7 @@ describe('Element', function() {
 	it('should render markdown to table tags', function() {
 		var reactElement = React.createElement(Element, { markdown: '|h1|h2|h3|\n|:--|:--:|--:|\n|*foo*|**bar**|baz|', tables: true });
 		var actualHtml = renderToStaticMarkup(reactElement);
-		var expectedHtml = '<table><thead><tr><th>h1</th><th>h2</th><th>h3</th></tr></thead><tbody><tr><td><em>foo</em></td><td><strong>bar</strong></td><td>baz</td></tr></tbody></table>';
+		var expectedHtml = '<table><thead><tr><th style="text-align:left;">h1</th><th style="text-align:center;">h2</th><th style="text-align:right;">h3</th></tr></thead><tbody><tr><td style="text-align:left;"><em>foo</em></td><td style="text-align:center;"><strong>bar</strong></td><td style="text-align:right;">baz</td></tr></tbody></table>';
 		assert.equal(actualHtml, expectedHtml);
 	});
 });
