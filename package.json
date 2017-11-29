@@ -28,7 +28,7 @@
     "create-react-class": "^15.5.2",
     "htmlparser2": "^3.9.0",
     "prop-types": "^15.5.8",
-    "showdown": "^1.7.5"
+    "showdown": "^1.8.3"
   },
   "devDependencies": {
     "coveralls": "^3.0.0",
