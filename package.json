@@ -25,18 +25,18 @@
     "showdown"
   ],
   "dependencies": {
-    "create-react-class": "^15.5.2",
-    "htmlparser2": "^3.9.0",
-    "prop-types": "^15.5.8",
-    "showdown": "^1.5.0"
+    "create-react-class": "^15.6.3",
+    "htmlparser2": "^3.9.2",
+    "prop-types": "^15.6.0",
+    "showdown": "^1.8.6"
   },
   "devDependencies": {
-    "coveralls": "^2.11.4",
-    "eslint": "^3.19.0",
-    "istanbul": "^0.4.1",
-    "mocha": "^3.2.0",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "showdown-twitter": "^1.0.1"
+    "coveralls": "^3.0.0",
+    "eslint": "^4.17.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^5.0.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "showdown-twitter": "^1.1.0"
   }
 }
