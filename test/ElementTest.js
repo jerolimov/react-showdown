@@ -35,9 +35,9 @@ describe('Element', function() {
 	});
 
 	it('should render little bit more complex markdown', function() {
-		var reactElement = React.createElement(Element, { markdown: '# Hello\n\nMore content...' });
+		var reactElement = React.createElement(Element, { markdown: '# Hello\n\nMore content.' });
 		var actualHtml = renderToStaticMarkup(reactElement);
-		var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p>More content...</p></div>';
+		var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p>More content.</p></div>';
 		assert.equal(actualHtml, expectedHtml);
 	});
 
@@ -63,9 +63,9 @@ describe('Element', function() {
 	});
 
 	it('should render markdown with react component tag with children', function() {
-		var reactElement = React.createElement(Element, { markdown: '# Hello\n\n<MyComponent tag="strong">More Content...</MyComponent>', components: { 'MyComponent': MyComponent } });
+		var reactElement = React.createElement(Element, { markdown: '# Hello\n\n<MyComponent tag="strong">More Content.</MyComponent>', components: { 'MyComponent': MyComponent } });
 		var actualHtml = renderToStaticMarkup(reactElement);
-		var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><strong>More Content...</strong></p></div>';
+		var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><strong>More Content.</strong></p></div>';
 		assert.equal(actualHtml, expectedHtml);
 	});
 

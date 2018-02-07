@@ -53,9 +53,9 @@ describe('Converter', function() {
 
 		it('should convert little bit more complex markdown to react elements', function() {
 			var converter = new Converter();
-			var reactElement = converter.convert('# Hello\n\nMore content...');
+			var reactElement = converter.convert('# Hello\n\nMore content.');
 			var actualHtml = renderToStaticMarkup(reactElement);
-			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p>More content...</p></div>';
+			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p>More content.</p></div>';
 			assert.equal(actualHtml, expectedHtml);
 		});
 
@@ -85,9 +85,9 @@ describe('Converter', function() {
 
 		it('should convert markdown with react component tag to react elements with children', function() {
 			var converter = new Converter({ components: { 'MyComponent': MyComponent }});
-			var reactElement = converter.convert('# Hello\n\n<MyComponent tag="strong">More Content...</MyComponent>');
+			var reactElement = converter.convert('# Hello\n\n<MyComponent tag="strong">More Content.</MyComponent>');
 			var actualHtml = renderToStaticMarkup(reactElement);
-			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><strong>More Content...</strong></p></div>';
+			var expectedHtml = '<div><h1 id="hello">Hello</h1>\n<p><strong>More Content.</strong></p></div>';
 			assert.equal(actualHtml, expectedHtml);
 		});
 
