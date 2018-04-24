@@ -75,7 +75,21 @@ var converter = new ReactShowdown.Converter({ components: { 'MyComponent': MyCom
 
 var markdown = '# Hello\n\n<MyComponent tag="strong">More Content...</MyComponent>';
 var reactElement = converter.convert(markdown);
+
 ```
+
+Set the markdown flavor once you've instantiated the converter:
+
+```js
+
+var Converter = require('react-showdown').Converter;
+var converter = new Converter();
+converter.setFlavor('github')
+
+```
+
+See avaliable flavors [here](https://github.com/showdownjs/showdown#flavors)
+
 
 ### Available props / converter options
 
