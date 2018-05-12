@@ -1,5 +1,7 @@
 # react-showdown [![Build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![Dependency Status][dependency-image]][dependency-url]
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/jerolimov/react-showdown.svg)](https://greenkeeper.io/)
+
 > Render [React](http://facebook.github.io/react/index.html)
 > [components](http://facebook.github.io/react/docs/component-specs.html)
 > within markdown and markdown as React components!
