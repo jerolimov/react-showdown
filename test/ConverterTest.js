@@ -128,5 +128,21 @@ describe('Converter', function() {
 			var expectedHtml = '<p><span class="foo">text</span><strong></strong></p>';
 			assert.equal(actualHtml, expectedHtml);
 		});
+
+		it('should render inline styles', function() {
+			var converter = new Converter();
+			var reactElement = converter.convert('<style>body { color: black; }</style>\nMore content');
+			var actualHtml = renderToStaticMarkup(reactElement);
+			var expectedHtml = '<div><style>body { color: black; }</style>\n<p>More content</p></div>';
+			assert.equal(actualHtml, expectedHtml);
+		});
+
+		it('should not render empty inline styles', function() {
+			var converter = new Converter();
+			var reactElement = converter.convert('<style></style>\nMore content');
+			var actualHtml = renderToStaticMarkup(reactElement);
+			var expectedHtml = '<div>\n<p>More content</p></div>';
+			assert.equal(actualHtml, expectedHtml);
+		});
 	});
 });
