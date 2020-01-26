@@ -34,7 +34,7 @@
     "coveralls": "^3.0.1",
     "eslint": "^6.0.0",
     "istanbul": "^0.4.1",
-    "mocha": "^6.0.0",
+    "mocha": "^7.0.1",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "showdown-twitter": "^1.0.1"
