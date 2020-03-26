@@ -2,41 +2,65 @@
   "name": "react-showdown",
   "version": "1.6.0",
   "description": "Render React components within markdown and markdown as React components!",
-  "main": "lib/index.js",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/react-showdown.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
   "scripts": {
-    "lint": "eslint lib test",
-    "test": "mocha --recursive",
-    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha --recursive"
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build"
   },
   "author": "Christoph Jerolimov",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jerolimov/react-showdown.git"
-  },
   "bugs": {
     "url": "https://github.com/jerolimov/react-showdown/issues"
   },
-  "homepage": "https://github.com/jerolimov/react-showdown#readme",
+  "homepage": "https://github.com/jerolimov/react-showdown",
   "keywords": [
     "react",
+    "reactjs",
     "react-component",
     "markdown",
     "showdown"
   ],
-  "dependencies": {
-    "create-react-class": "^15.5.2",
-    "htmlparser2": "^4.0.0",
-    "prop-types": "^15.5.8",
-    "showdown": "^1.5.0"
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
   },
   "devDependencies": {
-    "coveralls": "^3.0.1",
-    "eslint": "^6.0.0",
-    "istanbul": "^0.4.1",
-    "mocha": "^6.0.0",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "showdown-twitter": "^1.0.1"
+    "@types/jest": "^25.1.4",
+    "@types/react": "^16.9.25",
+    "@types/react-dom": "^16.9.5",
+    "@types/react-test-renderer": "^16.9.2",
+    "@types/showdown": "^1.9.3",
+    "husky": "^4.2.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-test-renderer": "^16.9.25",
+    "tsdx": "^0.13.0",
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "dependencies": {
+    "showdown": "^1.9.1"
   }
 }
