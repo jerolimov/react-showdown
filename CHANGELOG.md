@@ -32,4 +32,4 @@
 
 ## 1.0.0 (2015-12-02)
 
-*   First stable release...
+*   First stable release.
