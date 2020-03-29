@@ -20,9 +20,11 @@ import {
 import MarkdownView from './MarkdownView';
 
 export default MarkdownView;
+export const Markdown = MarkdownView;
 
-export { ShowdownExtension } from 'showdown';
 export { MarkdownViewProps } from './MarkdownView';
+
+export { Flavor, ShowdownExtension } from 'showdown';
 
 const setExtension: (
   name: string,
