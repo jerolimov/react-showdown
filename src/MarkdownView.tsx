@@ -19,6 +19,7 @@ export interface MarkdownViewProps {
   dangerouslySetInnerHTML?: boolean;
   flavor?: Flavor;
   markdown: string;
+  markup?: string;
   options?: ConverterOptions;
   extensions?: ShowdownExtension[];
   components?: Record<
@@ -32,6 +33,7 @@ export default function MarkdownView(props: MarkdownViewProps): ReactElement {
     dangerouslySetInnerHTML,
     flavor,
     markdown,
+    markup,
     options,
     extensions,
     components,
@@ -90,7 +92,7 @@ export default function MarkdownView(props: MarkdownViewProps): ReactElement {
     converter.addExtension(extensions);
   }
 
-  const html = converter.makeHtml(markdown);
+  const html = converter.makeHtml(markdown ?? markup);
 
   if (dangerouslySetInnerHTML) {
     return <div dangerouslySetInnerHTML={{ __html: html }} />;
