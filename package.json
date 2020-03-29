@@ -61,6 +61,7 @@
     "react": ">=16"
   },
   "dependencies": {
+    "htmlparser2": "^4.1.0",
     "showdown": "^1.9.1"
   }
 }

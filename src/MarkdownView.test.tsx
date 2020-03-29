@@ -1,11 +1,7 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 
-import MarkdownView, {
-  MarkdownViewProps,
-  GlobalConfiguration,
-  ShowdownExtension,
-} from './';
+import MarkdownView, { GlobalConfiguration } from './';
 
 afterEach(() => {
   GlobalConfiguration.resetExtensions();
@@ -13,17 +9,15 @@ afterEach(() => {
 });
 
 describe('MarkdownView', () => {
-  const renderHTML = (props: MarkdownViewProps) => {
-    const testRenderer = TestRenderer.create(<MarkdownView {...props} />);
-    const html = testRenderer.toJSON()!.props.dangerouslySetInnerHTML.__html;
-    return html;
-  };
-
-  it('render simple markdown', () => {
-    const markdown = '# Headline level 1!\n\nAnother paragraph.\n\n';
-    const html = renderHTML({ markdown });
-    expect(html).toMatch('<h1 id="headlinelevel1">Headline level 1!</h1>');
-    expect(html).toMatch('<p>Another paragraph.</p>');
+  it('render simple markdown with React elements', () => {
+    const markdown = '# Title!\n\nA paragraph.\n\n';
+    const testRenderer = TestRenderer.create(
+      <MarkdownView markdown={markdown} />
+    );
+    const testInstance = testRenderer.root;
+    expect(testInstance.findByType('h1').props.id).toEqual('title');
+    expect(testInstance.findByType('h1').children).toEqual(['Title!']);
+    expect(testInstance.findByType('p').children).toEqual(['A paragraph.']);
   });
 
   it('render markdown table', () => {
@@ -32,14 +26,25 @@ describe('MarkdownView', () => {
 |----------|----------|
 | A1       | B1       |
 | A2       | B2       |
-`;
-    const html = renderHTML({ markdown, options: { tables: true } });
-    expect(html).toMatch('<th>Column 1</th>');
-    expect(html).toMatch('<th>Column 2</th>');
-    expect(html).toMatch('<td>A1</td>');
-    expect(html).toMatch('<td>B1</td>');
-    expect(html).toMatch('<td>A2</td>');
-    expect(html).toMatch('<td>B2</td>');
+    `;
+    const testRenderer = TestRenderer.create(
+      <MarkdownView markdown={markdown} options={{ tables: true }} />
+    );
+    const testInstance = testRenderer.root;
+    expect(testInstance.findAllByType('table')).toHaveLength(1);
+    expect(testInstance.findAllByType('tr')).toHaveLength(3);
+    expect(testInstance.findAllByType('th')).toHaveLength(2);
+    expect(testInstance.findAllByType('td')).toHaveLength(4);
+    expect(testInstance.findAllByType('th').map(th => th.children)).toEqual([
+      ['Column 1'],
+      ['Column 2'],
+    ]);
+    expect(testInstance.findAllByType('td').map(th => th.children)).toEqual([
+      ['A1'],
+      ['B1'],
+      ['A2'],
+      ['B2'],
+    ]);
   });
 
   it('render markdown table with flavor github', () => {
@@ -48,14 +53,25 @@ describe('MarkdownView', () => {
 |----------|----------|
 | A1       | B1       |
 | A2       | B2       |
-`;
-    const html = renderHTML({ markdown, flavor: 'github' });
-    expect(html).toMatch('<th id="column_1">Column 1</th>');
-    expect(html).toMatch('<th id="column_2">Column 2</th>');
-    expect(html).toMatch('<td>A1</td>');
-    expect(html).toMatch('<td>B1</td>');
-    expect(html).toMatch('<td>A2</td>');
-    expect(html).toMatch('<td>B2</td>');
+    `;
+    const testRenderer = TestRenderer.create(
+      <MarkdownView flavor="github" markdown={markdown} />
+    );
+    const testInstance = testRenderer.root;
+    expect(testInstance.findAllByType('table')).toHaveLength(1);
+    expect(testInstance.findAllByType('tr')).toHaveLength(3);
+    expect(testInstance.findAllByType('th')).toHaveLength(2);
+    expect(testInstance.findAllByType('td')).toHaveLength(4);
+    expect(testInstance.findAllByType('th').map(th => th.children)).toEqual([
+      ['Column 1'],
+      ['Column 2'],
+    ]);
+    expect(testInstance.findAllByType('td').map(th => th.children)).toEqual([
+      ['A1'],
+      ['B1'],
+      ['A2'],
+      ['B2'],
+    ]);
   });
 
   it('render markdown table with flavor original', () => {
@@ -65,40 +81,59 @@ describe('MarkdownView', () => {
 | A1       | B1       |
 | A2       | B2       |
 `;
-    const html = renderHTML({ markdown, flavor: 'original' });
-    expect(html).toMatch('| Column 1 | Column 2 |');
-    expect(html).toMatch('|----------|----------|');
-    expect(html).toMatch('| A1       | B1       |');
-    expect(html).toMatch('| A2       | B2       |');
+    const testRenderer = TestRenderer.create(
+      <MarkdownView flavor="original" markdown={markdown} />
+    );
+    const testInstance = testRenderer.root;
+    expect(testInstance.findAllByType('table')).toHaveLength(0);
+    expect(testInstance.findAllByType('p')).toHaveLength(1);
+    expect(testInstance.findByType('p').children).toEqual([markdown.trim()]);
   });
 
   it('render html as it was parsed', () => {
     const markdown = '<h1>Title</h1>';
-    const html = renderHTML({ markdown });
-    expect(html).toMatch('<h1>Title</h1>');
+    const testRenderer = TestRenderer.create(
+      <MarkdownView markdown={markdown} />
+    );
+    const testInstance = testRenderer.root;
+    expect(testInstance.findByType('h1').children).toEqual(['Title']);
   });
 
   it('render html class name', () => {
     const markdown = '<h1 class="red">A red title</h1>';
-    const html = renderHTML({ markdown });
-    expect(html).toMatch('<h1 class="red">A red title</h1>');
+    const testRenderer = TestRenderer.create(
+      <MarkdownView markdown={markdown} />
+    );
+    const testInstance = testRenderer.root;
+    expect(testInstance.findByType('h1').props).toEqual({
+      class: 'red',
+      children: ['A red title'],
+    });
   });
 
   it('render html style', () => {
     const markdown = '<h1 style="color: red;">A red title</h1>';
-    const html = renderHTML({ markdown });
-    expect(html).toMatch('<h1 style="color: red;">A red title</h1>');
+    const testRenderer = TestRenderer.create(
+      <MarkdownView markdown={markdown} />
+    );
+    const testInstance = testRenderer.root;
+    expect(testInstance.findByType('h1').props).toEqual({
+      style: 'color: red;',
+      children: ['A red title'],
+    });
   });
 
   it('render text emojies', () => {
     const markdown = ':showdown: :+1:';
-    const html = renderHTML({ markdown, options: { emoji: true } });
-    expect(html).not.toMatch(':showdown:');
-    expect(html).not.toMatch(':+1:');
-    expect(html).toMatch(/<span.*>S<\/span>/);
-    expect(html).toMatch('👍');
+    const testRenderer = TestRenderer.create(
+      <MarkdownView markdown={markdown} options={{ emoji: true }} />
+    );
+    const testInstance = testRenderer.root;
+    // TODO: expect(testInstance.findAllByProps({ children: 'S' })).toHaveLength(1);
+    expect(testInstance.findByType('p').children).toContain(' 👍');
   });
 
+  /*
   it('render custom output extension (via global name)', () => {
     // Register global extension
     GlobalConfiguration.setExtension('big', {
@@ -180,5 +215,44 @@ describe('MarkdownView', () => {
     const markdown = 'Markdown ftw!';
     const html = renderHTML({ markdown, extensions: [extension] });
     expect(html).toMatch('Showdown ftw!');
+  });
+  */
+
+  it('render custom component without prop', () => {
+    function CustomComponent() {
+      return <span>Hello world!</span>;
+    }
+    const markdown = `
+# Title
+
+<CustomComponent />
+`;
+    const testRenderer = TestRenderer.create(
+      <MarkdownView markdown={markdown} components={{ CustomComponent }} />
+    );
+    const testInstance = testRenderer.root;
+    expect(testInstance.findByType('h1').children).toEqual(['Title']);
+    expect(testInstance.findByType('span').children).toEqual(['Hello world!']);
+  });
+
+  it('render custom component', () => {
+    function CustomComponent({ name }: { name: string }) {
+      return <span>Hello {name}!</span>;
+    }
+    const markdown = `
+# Title
+
+<CustomComponent name="world" />
+  `;
+    const testRenderer = TestRenderer.create(
+      <MarkdownView markdown={markdown} components={{ CustomComponent }} />
+    );
+    const testInstance = testRenderer.root;
+    expect(testInstance.findByType('h1').children).toEqual(['Title']);
+    expect(testInstance.findByType('span').children).toEqual([
+      'Hello ',
+      'world',
+      '!',
+    ]);
   });
 });
