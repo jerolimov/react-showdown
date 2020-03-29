@@ -9,7 +9,7 @@ afterEach(() => {
 });
 
 describe('MarkdownView', () => {
-  it('render simple markdown with React elements', () => {
+  it('render markdown with React elements', () => {
     const markdown = '# Title!\n\nA paragraph.\n\n';
     const testRenderer = TestRenderer.create(
       <MarkdownView markdown={markdown} />

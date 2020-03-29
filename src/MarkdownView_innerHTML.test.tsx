@@ -21,7 +21,7 @@ describe('MarkdownView', () => {
     return html;
   };
 
-  it('render simple markdown', () => {
+  it('render markdown', () => {
     const markdown = '# Headline level 1!\n\nAnother paragraph.\n\n';
     const html = renderInnerHTML({ markdown });
     expect(html).toMatch('<h1 id="headlinelevel1">Headline level 1!</h1>');

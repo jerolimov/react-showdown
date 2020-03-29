@@ -29,7 +29,7 @@ yarn add react-showdown
 
 ## Use as React component
 
-Really simple markdown example with ES6/JSX:
+Example with ES6/JSX:
 
 ```jsx
 export default function App() {
