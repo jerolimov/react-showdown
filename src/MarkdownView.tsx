@@ -46,6 +46,13 @@ export default function MarkdownView(props: MarkdownViewProps): ReactElement {
         if (node.type === 'tag' && node instanceof Element) {
           const elementType = components?.[node.name] || node.name;
           const props: Record<string, any> = { key: index, ...node.attribs };
+
+          // Rename class to className to hide react warning
+          if (props.class && !props.className) {
+            props.className = props.class;
+            delete props.class;
+          }
+
           const children = skipWhitespaceElementsFor.includes(node.name)
             ? node.children.filter(filterWhitespaceElements).map(mapElement)
             : node.children.map(mapElement);

@@ -18,6 +18,10 @@ To get started, edit the markdown in \`example/src/App.tsx\`.
 
 <h2>Supports HTML in markdown</h2>
 
+<h2 class="x">Headline with class</h2>
+
+<h2 className="x">Headline with className</h2>
+
 ## Supports Emojis as well :+1:
 
 <InlineComponent />

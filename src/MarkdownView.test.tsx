@@ -106,7 +106,19 @@ describe('MarkdownView', () => {
     );
     const testInstance = testRenderer.root;
     expect(testInstance.findByType('h1').props).toEqual({
-      class: 'red',
+      className: 'red',
+      children: ['A red title'],
+    });
+  });
+
+  it('render html className name', () => {
+    const markdown = '<h1 className="red">A red title</h1>';
+    const testRenderer = TestRenderer.create(
+      <MarkdownView markdown={markdown} />
+    );
+    const testInstance = testRenderer.root;
+    expect(testInstance.findByType('h1').props).toEqual({
+      className: 'red',
       children: ['A red title'],
     });
   });
