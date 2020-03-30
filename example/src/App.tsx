@@ -4,6 +4,9 @@ import MarkdownView from '../..';
 
 export default function App() {
   const markdown = `
+<style>
+  h1 { color: blue; }
+</style>
 # Welcome to React Showdown!
 
 To get started, edit the markdown in \`example/src/App.tsx\`.

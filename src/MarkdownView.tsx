@@ -54,9 +54,14 @@ export default function MarkdownView(props: MarkdownViewProps): ReactElement {
           return node.data;
         } else if (node.type === 'comment') {
           return null; // noop
+        } else if (node.type === 'style' && node instanceof Element) {
+          const props: Record<string, any> = { key: index, ...node.attribs };
+          const children = node.children.map(mapElement);
+          return createElement('style', props, children);
         } else {
           console.warn(
-            `Warning: Could not map element with type "${node.type}".`
+            `Warning: Could not map element with type "${node.type}".`,
+            node
           );
           return null;
         }
