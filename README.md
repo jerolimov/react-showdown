@@ -17,16 +17,14 @@
 
 ## Installation
 
-**Version 2.0 is now available as preview! Use the `next` tag to get the latest version.**
-
 ```bash
-npm install --save react-showdown@next
+npm install --save react-showdown
 ```
 
 or
 
 ```bash
-yarn add react-showdown@next
+yarn add react-showdown
 ```
 
 ## Use as React component
