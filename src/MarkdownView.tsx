@@ -53,6 +53,22 @@ export default function MarkdownView(props: MarkdownViewProps): ReactElement {
             delete props.class;
           }
 
+          // Map style strings to style objects
+          if (typeof props.style === 'string') {
+            const styles: Record<string, any> = {};
+            props.style.split(';').forEach(style => {
+              if (style.indexOf(':') !== -1) {
+                let [key, value] = style.split(':');
+                key = key
+                  .trim()
+                  .replace(/-([a-z])/g, match => match[1].toUpperCase());
+                value = value.trim();
+                styles[key] = value;
+              }
+            });
+            props.style = styles;
+          }
+
           const children = skipWhitespaceElementsFor.includes(node.name)
             ? node.children.filter(filterWhitespaceElements).map(mapElement)
             : node.children.map(mapElement);

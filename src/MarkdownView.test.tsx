@@ -130,7 +130,7 @@ describe('MarkdownView', () => {
     );
     const testInstance = testRenderer.root;
     expect(testInstance.findByType('h1').props).toEqual({
-      style: 'color: red;',
+      style: { color: 'red' },
       children: ['A red title'],
     });
   });

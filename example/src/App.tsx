@@ -22,6 +22,8 @@ To get started, edit the markdown in \`example/src/App.tsx\`.
 
 <h2 className="x">Headline with className</h2>
 
+<h2 style="color: red; border: 2px solid red; border-color: blue;">Headline with style</h2>
+
 ## Supports Emojis as well :+1:
 
 <InlineComponent />
@@ -32,6 +34,9 @@ Hello &Uuml;laute! ;)
 
 <strong>Hello &Uuml;laute! ;)</strong>
 
+|h1|h2|h3|
+|:--|:--:|--:|
+|*foo*|**bar**|baz|
 `;
 
   return (
