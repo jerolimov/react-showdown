@@ -69,7 +69,9 @@ export default function MarkdownView(props: MarkdownViewProps): ReactElement {
             props.style = styles;
           }
 
-          const children = skipWhitespaceElementsFor.includes(node.name)
+          const children = skipAnyChildrenFor.includes(node.name)
+            ? null
+            : skipWhitespaceElementsFor.includes(node.name)
             ? node.children.filter(filterWhitespaceElements).map(mapElement)
             : node.children.map(mapElement);
           return createElement(elementType, props, children);
@@ -137,6 +139,23 @@ export default function MarkdownView(props: MarkdownViewProps): ReactElement {
 
   return createElement('div', otherProps, root.map(mapElement));
 }
+
+// Match react-dom omittedCloseTags. See also:
+// https://github.com/facebook/react/blob/master/packages/react-dom/src/shared/omittedCloseTags.js
+const skipAnyChildrenFor = [
+  'area',
+  'br',
+  'col',
+  'embed',
+  'hr',
+  'img',
+  'input',
+  'keygen',
+  'param',
+  'source',
+  'track',
+  'wbr',
+];
 
 const skipWhitespaceElementsFor = ['table', 'thead', 'tbody', 'tr'];
 
