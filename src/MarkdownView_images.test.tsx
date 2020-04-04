@@ -19,21 +19,22 @@ describe('MarkdownView images test', () => {
 
   it('renders HTML correctly', () => {
     const markdown =
-      '![](https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823_1280.jpg)';
+      '![A forest trail in autumn](https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823_1280.jpg)';
     const html = renderInnerHTML({ markdown });
     expect(html).toEqual(
-      '<p><img src="https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823_1280.jpg" alt="" /></p>'
+      '<p><img src="https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823_1280.jpg" alt="A forest trail in autumn" /></p>'
     );
   });
 
   it('renders React elements', () => {
     const markdown =
-      '![](https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823_1280.jpg)';
+      '![A forest trail in autumn](https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823_1280.jpg)';
     const testRenderer = TestRenderer.create(
       <MarkdownView markdown={markdown} />
     );
     const testInstance = testRenderer.root;
     const img = testInstance.findByType('img');
+    expect(img.props.alt).toEqual('A forest trail in autumn');
     expect(img.props.src).toEqual(
       'https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823_1280.jpg'
     );
