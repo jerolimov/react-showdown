@@ -32,6 +32,9 @@ yarn add react-showdown
 Example with ES6/JSX:
 
 ```jsx
+import React from "react";
+import MarkdownView from 'react-showdown';
+
 export default function App() {
   const markdown = `
 # Welcome to React Showdown :+1:
