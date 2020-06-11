@@ -13,7 +13,10 @@
 * Supports all [Showdown extensions](https://github.com/showdownjs/showdown/wiki/extensions), like the
   [Twitter Extension](https://github.com/showdownjs/twitter-extension) and the
   [Youtube Extension](https://github.com/showdownjs/youtube-extension).
-* New in 2.0: Supports for Showdown Flavors
+* New in 2.0: Supports Showdown Flavors!
+* New in 2.1:
+  * Fixes [https://github.com/jerolimov/react-showdown/issues/54]: Missing content after a self-closing component. This was fixed by setting the default value of showdown config `recognizeSelfClosing` to `true`. Thanks [@n1ru4l](https://github.com/n1ru4l)
+  * New feature: add new optional `sanitizeHtml` prop for sanitizing html before it was rendered. Thanks [@n1ru4l](https://github.com/n1ru4l) aswell.
 
 ## Installation
 
