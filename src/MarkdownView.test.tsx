@@ -272,16 +272,18 @@ describe('MarkdownView', () => {
     function CustomComponent({ name }: { name: string }) {
       return <span>Hello {name}!</span>;
     }
-    const markdown = `<CustomComponent name="world" /> <b>lmao</b>`;
+    const markdown = `<CustomComponent name="world" /> <span>More content</span>`;
     const testRenderer = TestRenderer.create(
       <MarkdownView markdown={markdown} components={{ CustomComponent }} />
     );
     const testInstance = testRenderer.root;
-    expect(testInstance.findByType('span').children).toEqual([
+    expect(testInstance.findAllByType('span')[0].children).toEqual([
       'Hello ',
       'world',
       '!',
     ]);
-    expect(testInstance.findByType('b').children).toEqual(['lmao']);
+    expect(testInstance.findAllByType('span')[1].children).toEqual([
+      'More content',
+    ]);
   });
 });
