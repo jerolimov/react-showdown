@@ -140,6 +140,7 @@ export default function MarkdownView(props: MarkdownViewProps): ReactElement {
     lowerCaseAttributeNames: false,
     // Encode entities automatically, so that &copy; and &uuml; works correctly.
     decodeEntities: true,
+    // Fix issue with content after a self closing tag.
     recognizeSelfClosing: true,
   });
 
