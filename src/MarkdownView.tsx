@@ -140,6 +140,7 @@ export default function MarkdownView(props: MarkdownViewProps): ReactElement {
     lowerCaseAttributeNames: false,
     // Encode entities automatically, so that &copy; and &uuml; works correctly.
     decodeEntities: true,
+    recognizeSelfClosing: true,
   });
 
   return createElement('div', otherProps, root.map(mapElement));
