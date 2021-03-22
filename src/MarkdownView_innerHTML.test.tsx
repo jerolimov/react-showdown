@@ -17,7 +17,8 @@ describe('MarkdownView', () => {
     const testRenderer = TestRenderer.create(
       <MarkdownView dangerouslySetInnerHTML {...props} />
     );
-    const html = testRenderer.toJSON()!.props.dangerouslySetInnerHTML.__html;
+    const html = (testRenderer.toJSON()! as TestRenderer.ReactTestRendererJSON)
+      .props.dangerouslySetInnerHTML.__html;
     return html;
   };
 

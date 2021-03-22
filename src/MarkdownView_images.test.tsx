@@ -13,7 +13,8 @@ describe('MarkdownView images test', () => {
     const testRenderer = TestRenderer.create(
       <MarkdownView dangerouslySetInnerHTML {...props} />
     );
-    const renderedProps = testRenderer.toJSON()!.props;
+    const renderedProps = (testRenderer.toJSON() as TestRenderer.ReactTestRendererJSON)
+      .props;
     return renderedProps.dangerouslySetInnerHTML.__html;
   };
 
