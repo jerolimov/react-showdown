@@ -1,6 +1,6 @@
 {
   "name": "react-showdown",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Render React components within markdown and markdown as React components!",
   "license": "MIT",
   "main": "dist/index.js",
