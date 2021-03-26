@@ -60,12 +60,12 @@ export default function MarkdownView(props: MarkdownViewProps): ReactElement {
           // Map style strings to style objects
           if (typeof props.style === 'string') {
             const styles: Record<string, any> = {};
-            props.style.split(';').forEach((style) => {
+            props.style.split(';').forEach(style => {
               if (style.indexOf(':') !== -1) {
                 let [key, value] = style.split(':');
                 key = key
                   .trim()
-                  .replace(/-([a-z])/g, (match) => match[1].toUpperCase());
+                  .replace(/-([a-z])/g, match => match[1].toUpperCase());
                 value = value.trim();
                 styles[key] = value;
               }
