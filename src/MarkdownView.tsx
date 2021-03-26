@@ -1,10 +1,12 @@
+import { DataNode, Element, Node } from 'domhandler';
+import * as htmlparser from 'htmlparser2';
 import React, {
-  createElement,
-  useMemo,
   ClassType,
+  createElement,
   FunctionComponent,
-  ReactNode,
   ReactElement,
+  ReactNode,
+  useMemo,
 } from 'react';
 import {
   Converter,
@@ -12,8 +14,6 @@ import {
   Flavor,
   ShowdownExtension,
 } from 'showdown';
-import * as htmlparser from 'htmlparser2';
-import { Node, Element, DataNode } from 'domhandler';
 
 export interface MarkdownViewProps {
   dangerouslySetInnerHTML?: boolean;
@@ -27,6 +27,7 @@ export interface MarkdownViewProps {
     string,
     ClassType<never, never, never> | FunctionComponent<any>
   >;
+  Wrapper?: ClassType<never, never, never> | FunctionComponent<any>;
 }
 
 export default function MarkdownView(props: MarkdownViewProps): ReactElement {
@@ -39,6 +40,7 @@ export default function MarkdownView(props: MarkdownViewProps): ReactElement {
     extensions,
     components,
     sanitizeHtml,
+    Wrapper,
     ...otherProps
   } = props;
 
@@ -58,12 +60,12 @@ export default function MarkdownView(props: MarkdownViewProps): ReactElement {
           // Map style strings to style objects
           if (typeof props.style === 'string') {
             const styles: Record<string, any> = {};
-            props.style.split(';').forEach(style => {
+            props.style.split(';').forEach((style) => {
               if (style.indexOf(':') !== -1) {
                 let [key, value] = style.split(':');
                 key = key
                   .trim()
-                  .replace(/-([a-z])/g, match => match[1].toUpperCase());
+                  .replace(/-([a-z])/g, (match) => match[1].toUpperCase());
                 value = value.trim();
                 styles[key] = value;
               }
@@ -143,6 +145,10 @@ export default function MarkdownView(props: MarkdownViewProps): ReactElement {
     // Fix issue with content after a self closing tag.
     recognizeSelfClosing: true,
   });
+
+  if (Wrapper) {
+    return <Wrapper>{root.map(mapElement)}</Wrapper>;
+  }
 
   return createElement('div', otherProps, root.map(mapElement));
 }
