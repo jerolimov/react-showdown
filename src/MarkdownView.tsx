@@ -5,6 +5,7 @@ import React, {
   FunctionComponent,
   ReactNode,
   ReactElement,
+  HTMLAttributes,
 } from 'react';
 import {
   Converter,
@@ -15,7 +16,8 @@ import {
 import * as htmlparser from 'htmlparser2';
 import { Node, Element, DataNode } from 'domhandler';
 
-export interface MarkdownViewProps {
+export interface MarkdownViewProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'dangerouslySetInnerHTML'> {
   dangerouslySetInnerHTML?: boolean;
   flavor?: Flavor;
   markdown: string;
