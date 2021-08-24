@@ -150,7 +150,7 @@ export default function MarkdownView(props: MarkdownViewProps): ReactElement {
     return <Wrapper>{root.map(mapElement)}</Wrapper>;
   }
 
-  return createElement('div', otherProps, root.map(mapElement));
+  return createElement(Wrapper || 'div', otherProps, root.map(mapElement));
 }
 
 // Match react-dom omittedCloseTags. See also:
