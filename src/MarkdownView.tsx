@@ -14,7 +14,7 @@ import {
   ShowdownExtension,
 } from 'showdown';
 import * as htmlparser from 'htmlparser2';
-import { Node, Element, DataNode } from 'domhandler';
+import { DomHandler, Node, Element, DataNode } from 'domhandler';
 
 export interface MarkdownViewProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'dangerouslySetInnerHTML'> {
@@ -48,8 +48,14 @@ export default function MarkdownView(props: MarkdownViewProps): ReactElement {
     () =>
       function mapElement(node: Node, index: number): ReactNode {
         if (node.type === 'tag' && node instanceof Element) {
-          const elementType = components?.[node.name] || node.name;
-          const props: Record<string, any> = { key: index, ...node.attribs };
+          const component = components && components[node.name];
+
+          const elementType = component || node.name;
+
+          const props: Record<string, any> = {
+            key: index,
+            ...node.attribs,
+          };
 
           // Rename class to className to hide react warning
           if (props.class && !props.className) {
@@ -78,13 +84,17 @@ export default function MarkdownView(props: MarkdownViewProps): ReactElement {
             : skipWhitespaceElementsFor.includes(node.name)
             ? node.children.filter(filterWhitespaceElements).map(mapElement)
             : node.children.map(mapElement);
+
           return createElement(elementType, props, children);
         } else if (node.type === 'text' && node instanceof DataNode) {
           return node.data;
         } else if (node.type === 'comment') {
           return null; // noop
         } else if (node.type === 'style' && node instanceof Element) {
-          const props: Record<string, any> = { key: index, ...node.attribs };
+          const props: Record<string, any> = {
+            key: index,
+            ...node.attribs,
+          };
           const children = node.children.map(mapElement);
           return createElement('style', props, children);
         } else {
@@ -135,18 +145,21 @@ export default function MarkdownView(props: MarkdownViewProps): ReactElement {
     return <div dangerouslySetInnerHTML={{ __html: html }} />;
   }
 
-  const root = htmlparser.parseDOM(html, {
-    // Don't change the case of parsed html tags to match inline components.
-    lowerCaseTags: false,
-    // Don't change the attribute names so that stuff like `className` works correctly.
-    lowerCaseAttributeNames: false,
-    // Encode entities automatically, so that &copy; and &uuml; works correctly.
-    decodeEntities: true,
-    // Fix issue with content after a self closing tag.
-    recognizeSelfClosing: true,
+  let root;
+  const handler = new DomHandler((error, dom) => {
+    if (error) {
+      console.warn('MarkdownView could not parse DOM');
+    } else {
+      root = dom.map(mapElement);
+    }
   });
+  const parser = new htmlparser.Parser(handler, {
+    xmlMode: true,
+  });
+  parser.write(html);
+  parser.end();
 
-  return createElement('div', otherProps, root.map(mapElement));
+  return createElement('div', otherProps, root);
 }
 
 // Match react-dom omittedCloseTags. See also:
