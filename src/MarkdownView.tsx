@@ -126,7 +126,11 @@ export default function MarkdownView(props: MarkdownViewProps): ReactElement {
     converter.addExtension(extensions);
   }
 
-  let html = converter.makeHtml(markdown ?? markup);
+  // Always sanitize basic tags before returning element
+  let text = markdown ?? markup;
+  text = initial_sanitization(text);
+
+  let html = converter.makeHtml(text);
   if (sanitizeHtml) {
     html = sanitizeHtml(html);
   }
@@ -174,4 +178,17 @@ function filterWhitespaceElements(node: Node) {
   } else {
     return true;
   }
+}
+
+function initial_sanitization(string: String) {
+  let map = new Map([
+    ['&', '&amp;'],
+    ['<', '&lt;'],
+    ['>', '&gt;'],
+    ['"', '&quot;'],
+    ["'", '&#x27;'],
+    ['/', '&#x2F;']
+  ]);
+  const reg = /[&<>"'/]/gi;
+  return string.replace(reg, match => map.get(match)!);
 }
