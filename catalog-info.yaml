@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: react-showdown
+  annotations:
+    github.com/project-slug: jerolimov/react-showdown
+spec:
+  type: other
+  lifecycle: unknown
+  owner: jerolimov
